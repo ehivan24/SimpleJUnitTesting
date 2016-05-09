@@ -15,5 +15,5 @@ public class CountATesting {
 		JunitTest jtesting = new JunitTest();
 		int output = jtesting.countA("alphabeta");
 		assertEquals(3, output);
-	}
+	}	
 }

@@ -7,30 +7,44 @@ package bankaccount;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
 
 public class BankAccountTest {
 
+	BankAccount acc;	
+	@Before
+	public void setUp() throws Exception{
+		acc = new BankAccount(75);	
+	}
+	@After
+	public void tearDown() throws Exception{
+		acc.setBalance(0);
+	}
+	
 	@Test
 	public void testDepostit() {
-		BankAccount acc = new BankAccount();
 		acc.deposit(50);
-		assertEquals(acc.getBalance() , 50);
-		//System.out.println(acc.getBalance());
+		assertEquals(acc.getBalance() , 125);
 	}
 	
 	@Test
 	public void testWithdraw(){
-		BankAccount acc = new BankAccount(75);
 		acc.withdraw(30);
 		assertEquals(acc.getBalance(), 45);
-		//System.out.println(acc.getBalance());
 	}
 	@Test
 	public void testWithdrawPenalty(){
-		BankAccount acc = new BankAccount(10);
-		acc.withdraw(20);
-		assertEquals(acc.getBalance(), -15);
 		//System.out.println(acc.getBalance());
+		acc.withdraw(100);
+		assertEquals(acc.getBalance(), -30);
+	}
+	
+	@Test//(expected=IllegalArgumentException.class)
+	public void testAccDoesNotHaveBalance(){
+		assertFalse(acc.getBalance() < 0);
 	}
 }
+
